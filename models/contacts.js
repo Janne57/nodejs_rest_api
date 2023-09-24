@@ -23,6 +23,7 @@ const getContactById = async (contactId) => {
     const contactById = contacts.find((contact) => contact.id === contactId);
 
     if (!contactById) {
+
       return null;
     }
 
@@ -49,6 +50,7 @@ const removeContact = async (contactId) => {
 
       return contact;
     } else {
+
       return console.log("Not found");
     }
   } catch (error) {
@@ -87,6 +89,7 @@ const updateContact = async (contactId, body) => {
 
       return contacts[index];
     } else {
+      
       return null;
     }
   } catch (error) {}
