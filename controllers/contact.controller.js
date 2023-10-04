@@ -1,7 +1,6 @@
 const { Contact } = require("../models/contacts.models");
 const { catchAsync } = require("../utils/index");
 
-
 const getContact = catchAsync(async (req, res) => {
   try {
     const getContacts = await Contact.find();
@@ -11,7 +10,6 @@ const getContact = catchAsync(async (req, res) => {
     return res.status(400).json({ msg: error.message });
   }
 });
-
 
 const getContactById = catchAsync(async (req, res) => {
   try {
@@ -24,7 +22,6 @@ const getContactById = catchAsync(async (req, res) => {
   }
 });
 
-
 const createContact = catchAsync(async (req, res) => {
   try {
     const { body } = req;
@@ -35,7 +32,6 @@ const createContact = catchAsync(async (req, res) => {
     return res.status(400).json({ msg: error.message });
   }
 });
-
 
 const updateContactById = catchAsync(async (req, res) => {
   try {
@@ -56,7 +52,6 @@ const updateContactById = catchAsync(async (req, res) => {
   }
 });
 
-
 const deleteContact = catchAsync(async (req, res) => {
   try {
     const { id } = req.params;
@@ -74,15 +69,14 @@ const deleteContact = catchAsync(async (req, res) => {
   }
 });
 
-
 const updateStatusContact = catchAsync(async (req, res) => {
   try {
     const { body } = req;
     const { id } = req.params;
 
-    const updateStatusByContact = await Contact.findByIdAndUpdate(
-      id, body, { new: true,}
-    );
+    const updateStatusByContact = await Contact.findByIdAndUpdate(id, body, {
+      new: true,
+    });
 
     if (!updateStatusByContact) {
       return res.status(404).json({ error: "not found..." });
@@ -94,6 +88,12 @@ const updateStatusContact = catchAsync(async (req, res) => {
   }
 });
 
+const getMe = (req, res) => {
+  res.status(200).json({
+    user: req.user,
+  });
+};
+
 module.exports = {
   getContact,
   getContactById,
@@ -101,4 +101,5 @@ module.exports = {
   updateContactById,
   deleteContact,
   updateStatusContact,
+  getMe,
 };

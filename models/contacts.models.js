@@ -1,4 +1,3 @@
-// const { string } = require("joi");
 const { model, Schema } = require("mongoose");
 
 const contact = new Schema({
@@ -17,6 +16,10 @@ const contact = new Schema({
     type: Boolean,
     default: false,
   },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  }
 });
 
 const Contact = model("contacts", contact);
