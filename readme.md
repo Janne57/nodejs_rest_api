@@ -29,3 +29,7 @@
 - `npm run start:dev` &mdash; старт сервера в режимі розробки (development)
 - `npm run lint` &mdash; запустити виконання перевірки коду з eslint, необхідно виконувати перед кожним PR та виправляти всі помилки лінтера
 - `npm lint:fix` &mdash; та ж перевірка лінтера, але з автоматичними виправленнями простих помилок
+
+
+http://localhost:3000/avatars/delicious-cake-with-flowers-on-stand.jpg
+http://localhost:3000/avatars/front-view-french-macarons-with-cinnamon-berries-and-tea.jpg

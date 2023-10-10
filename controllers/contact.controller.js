@@ -1,5 +1,7 @@
 const { Contact } = require("../models/contacts.models");
 const { catchAsync } = require("../utils/index");
+// const path = require("path");
+const ImageService = require("../services/imageService");
 
 const getContact = catchAsync(async (req, res) => {
   try {
@@ -94,6 +96,38 @@ const getMe = (req, res) => {
   });
 };
 
+const updateMe = catchAsync(async (req, res) => {
+  
+  // console.log(req.body, req.user, req.file);
+  // console.log(userData, user, file);
+ 
+
+  try {
+    if (req.file) {
+      // req.user.avatarURL = req.file.path.replace('public', '');
+      req.user.avatarURL = await ImageService.save(
+        req.file,
+        { maxSize: 1.3, width: 250, height: 250 },
+        "public",
+        "avatars",
+        req.user.id
+      );
+    }
+
+    Object.keys(req.body).forEach((key) => {
+      req.user[key] = req.body[key];
+    });
+
+    const user = req.user;
+    user.save();
+
+    return res.status(200).json({ message: "Success", user });
+  } catch (error) {
+    
+    return res.status(401).json({ message: error.message });
+  }
+});
+
 module.exports = {
   getContact,
   getContactById,
@@ -102,4 +136,5 @@ module.exports = {
   deleteContact,
   updateStatusContact,
   getMe,
+  updateMe,
 };

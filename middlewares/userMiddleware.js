@@ -1,6 +1,8 @@
 const { Types } = require("mongoose");
 const { Contact } = require("../models/contacts.models");
+const ImageService = require("../services/imageService");
 const { AppError, catchAsync, userValidator } = require("../utils/index");
+
 
 exports.checkUserId = catchAsync(async (req, res, next) => {
   const { id } = req.params;
@@ -33,3 +35,6 @@ exports.checkUpdateContactData = catchAsync(async (req, res, next) => {
   req.body = value;
   next();
 });
+
+
+exports.upLoadUserAvatars = ImageService.initUpLoaderMdwr('avatar');

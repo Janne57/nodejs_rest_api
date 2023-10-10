@@ -3,11 +3,11 @@ const router = express.Router();
 
 const ctrl = require("../../controllers/contact.controller");
 const userMdwr = require("../../middlewares/userMiddleware");
-const authMdwr = require("../../middlewares/authMiddleware")
-
+const authMdwr = require("../../middlewares/authMiddleware");
 
 router.use(authMdwr.protect);
-router.get('/get-me', ctrl.getMe)
+router.get("/get-me", ctrl.getMe);
+router.patch("/avatars", userMdwr.upLoadUserAvatars, ctrl.updateMe);
 
 
 router.get("/", ctrl.getContact);
