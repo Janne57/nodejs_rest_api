@@ -4,6 +4,7 @@ const { AppError } = require("../utils/index");
 const { signToken } = require("../services/jwtService");
 const jwt = require("jsonwebtoken");
 // const bcrypt = require("bcrypt");
+const { nanoid } = require("nanoid");
 
 exports.checkUserExistById = async (id) => {
   const idIsValid = Types.ObjectId.isValid(id);
@@ -34,8 +35,11 @@ exports.checkUserExists = async (filter) => {
 };
 
 exports.registerUser = async (userData) => {
+  const verificationToken = nanoid();
+
   const newUserData = {
     ...userData,
+    verificationToken,
   };
 
   const newUser = await User.create(newUserData);
@@ -47,6 +51,7 @@ exports.registerUser = async (userData) => {
   //   expiresIn: "10h",
   // });
 
+  newUser.token= token;
   return { user: newUser, token };
 };
 
@@ -57,6 +62,10 @@ exports.loginUser = async (userData) => {
 
   if (!user) {
     throw new AppError(401, "Not authorized");
+  }
+
+  if (!user.verify) {
+    throw new AppError(401, "Not verification of email");
   }
 
   const passwordIsValid = await user.checkPassword(

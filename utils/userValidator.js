@@ -19,6 +19,8 @@ exports.dataValidator = (data) =>
       // name: Joi.string().min(2).max(28).required(),
       email: Joi.string().email().required(),
       password: Joi.string().required(),
+      subscription: Joi.string(),
+      token: Joi.string(),
       // password: Joi.string().regex(regex.PASSWORD_REGEX).required(),
     })
     .validate(data);

@@ -2,12 +2,11 @@ const app = require("./app");
 
 const mongoose = require("mongoose");
 require("dotenv").config();
-// const router = require("./routes/api/contacts");
-// const router = require("./routes/api/authRouter");
+
 
 const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING;
 const port = process.env.port;
-// app.use(router);
+
 
 // MONGODB CONNECTION
 mongoose
